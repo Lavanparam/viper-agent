@@ -5,3 +5,7 @@ google-generativeai
 googlesearch-python
 requests
 beautifulsoup4
+python-multipart
+pypdf
+python-docx
+fpdf

@@ -157,8 +157,131 @@ function removeMessage(id) {
 
 sendBtn.addEventListener('click', sendMessage);
 userInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+});
+
+// --- Toolbar Logic ---
+
+const fileUpload = document.getElementById('file-upload');
+const uploadBtn = document.getElementById('upload-btn');
+const clearBtn = document.getElementById('clear-btn');
+const exportBtn = document.getElementById('export-btn');
+const exportMenu = document.getElementById('export-menu');
+const exportPdf = document.getElementById('export-pdf');
+const exportDocx = document.getElementById('export-docx');
+
+// Upload
+uploadBtn.addEventListener('click', () => fileUpload.click());
+
+fileUpload.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Show uploading...
+    const loadingId = addLoadingIndicator();
+
+    try {
+        const res = await fetch('/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+        removeMessage(loadingId);
+
+        if (res.ok) {
+            // Success: Send content as a hidden system/user message context
+            addMessage(`Uploaded: ${data.filename}`, 'user');
+
+            // Send to Agent
+            // Context injection: "Content of uploaded file [name]: \n [text]"
+            const contextMsg = `I have uploaded a file named "${data.filename}". Here is the content:\n\n${data.content}\n\nPlease analyze this content.`;
+
+            // Call sendMessage logic manually
+            // We reuse the sendMessage logic but bypass UI input
+            messageHistory.push({ role: 'user', content: contextMsg });
+
+            const agentLoadingId = addLoadingIndicator();
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: contextMsg, history: messageHistory })
+            });
+
+            const agentData = await response.json();
+            removeMessage(agentLoadingId);
+
+            if (response.ok) {
+                addMessage(agentData.response, 'agent');
+                messageHistory.push({ role: 'model', content: agentData.response });
+            } else {
+                addMessage("Error analyzing file: " + agentData.detail, 'agent');
+            }
+
+        } else {
+            addMessage("Upload failed: " + data.detail, 'agent');
+        }
+    } catch (err) {
+        removeMessage(loadingId);
+        addMessage("Upload Error: " + err.message, 'agent');
+    }
+
+    // Reset input
+    fileUpload.value = '';
+});
+
+// Clear Chat
+clearBtn.addEventListener('click', () => {
+    if (confirm("Are you sure you want to clear the chat?")) {
+        messageHistory = [];
+        chatContainer.innerHTML = '';
+        // Restore welcome message
+        const welcome = document.createElement('div');
+        welcome.classList.add('message', 'agent-message');
+        welcome.innerHTML = '<div class="message-content"><p>Chat cleared. Waiting for new game theory scenario.</p></div>';
+        chatContainer.appendChild(welcome);
     }
 });
+
+// Export Menu Toggle
+exportBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    exportMenu.classList.toggle('hidden');
+});
+
+document.addEventListener('click', () => {
+    exportMenu.classList.add('hidden');
+});
+
+// Export Handlers
+async function handleExport(format) {
+    if (messageHistory.length === 0) {
+        alert("No chat history to export.");
+        return;
+    }
+
+    try {
+        const res = await fetch('/export', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ history: messageHistory, format: format })
+        });
+
+        if (res.ok) {
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `viper-chat.${format}`; // .pdf or .docx
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } else {
+            const text = await res.text();
+            alert("Export failed: " + text);
+        }
+    } catch (err) {
+        alert("Export error: " + err.message);
+    }
+}
+
+exportPdf.addEventListener('click', () => handleExport('pdf'));
+exportDocx.addEventListener('click', () => handleExport('docx'));
