@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Optional
 from agent import GameTheoryAgent
@@ -39,7 +41,7 @@ async def chat_endpoint(request: ChatRequest):
 
 @app.get("/")
 async def read_root():
-    return {"message": "Game Theory Agent API is running. Go to /static/index.html"}
+    return FileResponse('static/index.html')
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
