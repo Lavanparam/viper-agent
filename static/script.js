@@ -247,6 +247,14 @@ exportBtn.addEventListener('click', (e) => {
     exportMenu.classList.toggle('hidden');
 });
 
+// Auto-hide on mouse leave
+const exportWrapper = document.querySelector('.export-wrapper');
+if (exportWrapper) {
+    exportWrapper.addEventListener('mouseleave', () => {
+        exportMenu.classList.add('hidden');
+    });
+}
+
 document.addEventListener('click', () => {
     exportMenu.classList.add('hidden');
 });

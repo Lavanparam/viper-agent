@@ -96,20 +96,47 @@ body::before {
 
 header {
     padding: 16px 24px;
-    /* Reduced padding */
     border-bottom: 1px solid var(--glass-border);
-    text-align: center;
     background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* Space out items */
+    position: relative;
+    z-index: 20;
+}
+
+.header-center {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-tools-left,
+.header-spacer-right {
+    width: 100px;
+    /* Symmetry spacer */
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.header-btn {
+    opacity: 0.6;
+    transition: all 0.2s;
+}
+
+.header-btn:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 header h1 {
     font-weight: 200;
     font-size: 1.4rem;
-    /* Reduced font size */
     letter-spacing: 2px;
     text-transform: uppercase;
     background: linear-gradient(to right, #fff, #94a3b8);
@@ -120,11 +147,38 @@ header h1 {
 
 header .subtitle {
     font-size: 0.75rem;
-    /* Reduced font size */
     color: var(--accent-glow);
     letter-spacing: 1px;
     text-transform: uppercase;
     opacity: 0.8;
+}
+
+/* Adjust Export Menu for Header Position */
+.export-wrapper {
+    position: relative;
+}
+
+.export-menu {
+    position: absolute;
+    top: 100%;
+    /* Downwards from header */
+    left: 0;
+    min-width: 130px;
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.export-menu .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
 }
 
 .chat-container {
@@ -386,4 +440,44 @@ button:active {
 
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+/* Icon Button Base */
+.icon-btn {
+    border-color: transparent;
+    color: var(--text-secondary);
+    padding: 8px;
+}
+
+.icon-btn:hover {
+    background: rgba(45, 212, 191, 0.1);
+    border-color: rgba(45, 212, 191, 0.3);
+    color: var(--accent-glow);
+}
+
+/* Input Area Specific */
+.input-tool-btn {
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+
+/* Export Menu Tweaks */
+.menu-item svg {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.menu-item:hover svg {
+    opacity: 1;
+}
+
+.menu-item:hover {
+    color: var(--accent-glow);
+    background: rgba(255, 255, 255, 0.05);
+    /* Match other icons */
+}
+
+/* Utility to hide elements */
+.hidden {
+    display: none !important;
 }
