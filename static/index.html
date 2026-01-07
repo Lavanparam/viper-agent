@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viper - Game Theory Strategist</title>
+    <link rel="stylesheet" href="style.css?v=1.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Markdown Support -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Mermaid Support -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+</head>
+
+<body>
+    <div class="background-glow"></div>
+    <div class="app-container">
+        <header>
+            <h1>Viper</h1>
+            <p class="subtitle">Advanced Game Theory Strategy</p>
+        </header>
+
+        <div class="chat-container" id="chat-container">
+            <div class="message agent-message">
+                <div class="message-content">
+                    <p>Hello. I am Viper. Describe a situation, and I will analyze the players, payoffs, and optimal
+                        strategies.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-wrapper">
+                <textarea id="user-input" placeholder="Describe your situation..." rows="1"></textarea>
+                <button id="send-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js?v=1.1"></script>
+</body>
+
+</html>

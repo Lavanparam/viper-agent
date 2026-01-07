@@ -1,0 +1,89 @@
+{
+    "concepts": [
+        {
+            "term": "Nash Equilibrium",
+            "definition": "A set of strategies, one for each player, such that no player can unilaterally change their strategy and get a better payoff.",
+            "application": "Look for stable states where no one wants to deviate."
+        },
+        {
+            "term": "Pareto Efficiency",
+            "definition": "A state where no resource can be reallocated to make one individual better off without making at least one individual worse off.",
+            "application": "Evaluate if the outcome is socially optimal or can be improved for everyone."
+        },
+        {
+            "term": "Dominant Strategy",
+            "definition": "A strategy that produces the highest payoff for a player regardless of what the other players do.",
+            "application": "Always play a dominant strategy if one exists."
+        },
+        {
+            "term": "Zero-Sum Game",
+            "definition": "A mathematical representation of a situation in which each participant's gain or loss of utility is exactly balanced by the losses or gains of the utility of the other participants.",
+            "application": "Recognize that your gain is the opponent's loss. Collaboration is impossible."
+        },
+        {
+            "term": "BATNA",
+            "definition": "Best Alternative to a Negotiated Agreement. The most advantageous alternative course of action a party can take if negotiations fail and an agreement cannot be reached.",
+            "application": "Know your walk-away point. Do not accept a deal worse than your BATNA."
+        },
+        {
+            "term": "Backward Induction",
+            "definition": "The process of reasoning backward in time, from the end of a problem or situation, to determine a sequence of optimal actions.",
+            "application": "Look forward to the end of the game and reason backward to the present."
+        }
+    ],
+    "games": [
+        {
+            "name": "Prisoner's Dilemma",
+            "description": "Two rational agents might not cooperate, even if it appears that it is in their best interest to do so.",
+            "payoff_structure": "T > R > P > S (T=Temptation, R=Reward, P=Punishment, S=Sucker)",
+            "standard_strategies": [
+                "Cooperate",
+                "Defect"
+            ],
+            "insights": "In a single shot, Defect is dominant. In iterated versions, cooperation can emerge (e.g., Tit-for-Tat)."
+        },
+        {
+            "name": "Chicken (Hawk-Dove)",
+            "description": "A game of conflict between two players in which the optimal strategy depends on the strategy of the opponent: if the opponent yields, be aggressive; if the opponent is aggressive, yield.",
+            "payoff_structure": "DC > CC > CD > DD (Best is to defect while other coops, worst is both defect/crash)",
+            "standard_strategies": [
+                "Swerve (Chicken)",
+                "Straight (Bold)"
+            ],
+            "insights": "The key is commitment. If you can convincingly signal you will not swerve, the opponent must swerve."
+        },
+        {
+            "name": "Battle of the Sexes",
+            "description": "A coordination game where two players share a main goal (spend time together) but have different preferred sub-goals (e.g., Opera vs. Football).",
+            "standard_strategies": [
+                "Option A",
+                "Option B"
+            ],
+            "insights": "Communication or focal points are required to solve the coordination problem."
+        },
+        {
+            "name": "Stag Hunt",
+            "description": "A game that describes a conflict between safety and social cooperation. Hunting a stag requires cooperation; hunting a hare can be done alone.",
+            "payoff_structure": "Coordination (Stag) > Safety (Hare) > Failed Coordination",
+            "standard_strategies": [
+                "Hunt Stag",
+                "Hunt Hare"
+            ],
+            "insights": "Trust is essential. If you trust the other to hunt stag, you should too. If not, play safe."
+        }
+    ],
+    "heuristics": [
+        {
+            "rule": "Schelling Point (Focal Point)",
+            "description": "A solution that people will tend to use in the absence of communication because it seems natural, special, or relevant to them."
+        },
+        {
+            "rule": "Tit-for-Tat",
+            "description": "Start by cooperating, then do whatever the opponent did in the previous round. It is nice, retaliating, forgiving, and clear."
+        },
+        {
+            "rule": "Grim Trigger",
+            "description": "Cooperate until the opponent defects once, then defect forever."
+        }
+    ]
+}
