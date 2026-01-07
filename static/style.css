@@ -220,6 +220,11 @@ header .subtitle {
     font-weight: 700;
 }
 
+.agent-message .message-content strong {
+    color: #3B82F6;
+    /* Cobalt Blue-ish for legibility */
+}
+
 .message-content code {
     background: rgba(0, 0, 0, 0.3);
     padding: 2px 6px;
