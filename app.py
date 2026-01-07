@@ -7,6 +7,9 @@ from typing import List, Optional
 from agent import GameTheoryAgent
 import uvicorn
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Game Theory Agent")
 
